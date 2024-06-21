@@ -1,4 +1,7 @@
 const container = document.querySelector("main")
+const addProject = document.querySelector(".add-project")
+const newForm = document.querySelector("#new-project-form")
+const submit = document.querySelector("#create-project")
 let buttons;
 
 const Dom = {
@@ -63,11 +66,27 @@ class Project {
     }
 }
 
+function addAll(arr = []) {
+    arr.forEach(i => {
+        console.log(projects[i])
+        i.addProject()
+        console.log("eyy")
+    })
+}
+
+function removeAll() {
+    while (container.firstChild) {
+        container.removeChild(container.lastChild);
+      }
+}
+
 const testProject1 = new Project("Monday", [new Item("Tie shoelace", "Tie the left one, and then the right", ["21/08/2024", "14:30"]), new Item("Tennis training", "Make sure to bring the racket", ["23/09/2025", "18:00"])])
 const testProject2 = new Project("Tuesday", [new Item("Eat breakfast", "Some delicious Nutrigrain...", ["22/08/2024", "7:30"]), new Item("Basketball training", "Make sure to bring a basketball", ["24/09/2025", "17:30"])])
 
-testProject1.addProject()
-testProject2.addProject()
+const projects = [testProject1, testProject2]
+console.log(projects)
+
+addAll(projects)
 
 document.querySelectorAll(".project button").forEach(btn => {
     btn.addEventListener("click", (event) => {
@@ -76,8 +95,26 @@ document.querySelectorAll(".project button").forEach(btn => {
             case "button-add":
                 break
             case "button-delete":
-                container.remove(event.target.parentNode)
+                event.target.parentNode.parentNode.remove()
                 break
         }
     })
+})
+
+addProject.addEventListener("click", () => {
+    newForm.removeAttribute("style", "display: hidden;")
+    newForm.setAttribute("style", "display: grid;")
+})
+
+submit.addEventListener("click", () => {
+    event.preventDefault()
+    let title = document.querySelector("#new-project-form input").value
+    
+
+    newForm.removeAttribute("style", "display: grid;")
+    newForm.setAttribute("style", "display: hidden;")
+
+    removeAll()
+    projects.push(new Project(title))
+    addAll(projects)
 })

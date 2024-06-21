@@ -68,3 +68,21 @@ header {
     max-width: 1024px;
     margin: auto;
 }
+
+form {
+    display: none;
+    padding: 16px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"], input[type="number"] {
+    border: none;
+    background-color: #f1f1f1;
+    padding: 7px 20px;
+    border-radius: 50px;
+    margin: 15px 10px;
+}
