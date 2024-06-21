@@ -68,9 +68,29 @@ class Project {
 
 function addAll(arr = []) {
     arr.forEach(i => {
-        console.log(projects[i])
         i.addProject()
-        console.log("eyy")
+    })
+    buttons = document.querySelectorAll(".project button")
+    console.log(buttons)
+    buttons.forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            const className = event.target.classList[0]
+            switch(className) {
+                case "button-add":
+                    break
+                case "button-delete":
+                    const name = event.target.parentNode.parentNode.firstChild.textContent
+                    console.log(name)
+                    projects.forEach((element, index) => {
+                        if(element.title == name) {
+                            projects.splice(index, 1)
+                        }
+                    })
+                    removeAll()
+                    addAll(projects)
+                    break
+            }
+        })
     })
 }
 
@@ -84,22 +104,9 @@ const testProject1 = new Project("Monday", [new Item("Tie shoelace", "Tie the le
 const testProject2 = new Project("Tuesday", [new Item("Eat breakfast", "Some delicious Nutrigrain...", ["22/08/2024", "7:30"]), new Item("Basketball training", "Make sure to bring a basketball", ["24/09/2025", "17:30"])])
 
 const projects = [testProject1, testProject2]
-console.log(projects)
 
 addAll(projects)
 
-document.querySelectorAll(".project button").forEach(btn => {
-    btn.addEventListener("click", (event) => {
-        const className = event.target.classList[0]
-        switch(className) {
-            case "button-add":
-                break
-            case "button-delete":
-                event.target.parentNode.parentNode.remove()
-                break
-        }
-    })
-})
 
 addProject.addEventListener("click", () => {
     newForm.removeAttribute("style", "display: hidden;")
