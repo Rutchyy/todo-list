@@ -1,0 +1,70 @@
+body {
+    font-family: "Roboto", sans-serif;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+.project {
+    margin: 16px;
+    padding: 8px;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    border-left: #246da9 5px solid;
+    border-top: #246da9 5px solid;
+}
+
+li:nth-child(n+1) {
+    border-top: 2px #f1f1f1 solid;
+}
+
+li:nth-last-child(1) {
+    border-bottom: 2px #f1f1f1 solid;
+}
+
+li {
+    padding: 12px;
+    list-style-type: none;
+}
+
+.project-list {
+    grid-column: 1 / -1;
+    padding: 0;
+}
+
+input[type="checkbox"]:checked + label::before {
+    color: blue;
+}
+
+label::before {
+    background: blue;
+}
+
+.button-box {
+    display: flex;
+    justify-content: end;
+}
+
+button {
+    background: #f1f1f1;
+    border: none;
+    padding: 7px 20px;
+    border-radius: 50px;
+    margin: 15px 10px;
+}
+
+.button-box, h2 {
+    grid-column: 0.5;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 16px;
+}
+
+.holder {
+    max-width: 1024px;
+    margin: auto;
+}
