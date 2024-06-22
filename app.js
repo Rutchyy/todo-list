@@ -52,6 +52,10 @@ class Project {
         const label = Dom.makeElement("label", "list-label", item.title)
         label.setAttribute("for", itemId)
         box.appendChild(label)
+        const info = Dom.makeElement("div", "info")
+        info.appendChild(Dom.makeElement("p", "list-desc", item.description))
+        info.appendChild(Dom.makeElement("p", "list-date", item.time.date))
+        box.appendChild(info)
         return box
     }
 
@@ -108,10 +112,8 @@ function addAll(arr = []) {
 
     document.querySelectorAll("li > label").forEach((e) => e.addEventListener("click", (event) => {
         for(let i = 0; i <= projects.length - 1; i++) {
-            console.log("Outer loop I: " + i)
             for(let j = 0; j <= projects[i].items.length -1; j++) {
-                console.log("Inner loop J: " + j)
-                if(projects[i].items[j].title == event.target.parentNode.lastChild.textContent) {
+                if(projects[i].items[j].title == event.target.parentNode.children[1].textContent) {
                     setTimeout(() => {
                         projects[i].items.splice(j, 1)
                         removeAll()
@@ -129,10 +131,9 @@ function removeAll() {
       }
 }
 
-const testProject1 = new Project("Monday", [new Item("Tie shoelace", "Tie the left one, and then the right", ["21/08/2024", "14:30"]), new Item("Tennis training", "Make sure to bring the racket", ["23/09/2025", "18:00"])])
-const testProject2 = new Project("Tuesday", [new Item("Eat breakfast", "Some delicious Nutrigrain...", ["22/08/2024", "7:30"]), new Item("Basketball training", "Make sure to bring a basketball", ["24/09/2025", "17:30"])])
+const testProject = new Project("Tutorial", [new Item("Complete you first task!", "Once you've finished a task you can click the checkbox next to a task to mark it as complete where it'll be removed from the project.", ["2030/21/08", "12:00"]), new Item("Create projects/items", "Click the \"Add\" button to add a list item, like this one, to a project. Create a project with the \"Add Project\" button. Be careful to not name them the same thing!", ["23/09/2025", "18:00"])])
 
-const projects = [testProject1, testProject2]
+const projects = [testProject]
 
 addAll(projects)
 
@@ -158,11 +159,10 @@ submitItem.addEventListener("click", (event) => {
     event.preventDefault()
     let title = document.querySelector("#new-item-form #title").value
     let desc = document.querySelector("#new-item-form #desc").value
-    let time = [document.querySelector("#new-item-form #date").value, document.querySelector("#new-item-form #time").value]
+    let time = [document.querySelector("#new-item-form #date").value.replace(/-/g, '/'), "12:00pm"]
     projects.forEach((i, ind) => {
         if(i.title == item.firstChild.textContent) {
             projects[ind].items.push(new Item(title, desc, time))
-            console.log(projects)
         }
     })
 
