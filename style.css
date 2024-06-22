@@ -12,6 +12,7 @@ body {
     display: grid;
     grid-template-columns: 0.5fr 1fr;
     border-left: #0d9c19 5px solid;
+    padding-left: 32px;
 }
 
 li:nth-child(n+1) {
@@ -57,7 +58,7 @@ header {
 }
 
 .holder {
-    max-width: 1024px;
+    max-width: 720px;
     margin: auto;
 }
 
@@ -101,6 +102,7 @@ label {
     position: relative;
     font-size: 1.3rem;
     margin-left: 32px;
+    cursor: pointer;
 }
 
 label::before {
@@ -124,6 +126,8 @@ input[type="checkbox"]:checked + label::before {
 
 input[type="checkbox"]:checked + label {
     transition: all 1s;
+    text-decoration: line-through;
+    color: #444;
 }
   
 main label::after {

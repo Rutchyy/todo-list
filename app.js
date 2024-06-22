@@ -106,8 +106,21 @@ function addAll(arr = []) {
         })
     })
 
-    listItems = document.querySelectorAll("li > label, li > input")
-    console.log(listItems)
+    document.querySelectorAll("li > label").forEach((e) => e.addEventListener("click", (event) => {
+        for(let i = 0; i <= projects.length - 1; i++) {
+            console.log("Outer loop I: " + i)
+            for(let j = 0; j <= projects[i].items.length -1; j++) {
+                console.log("Inner loop J: " + j)
+                if(projects[i].items[j].title == event.target.parentNode.lastChild.textContent) {
+                    setTimeout(() => {
+                        projects[i].items.splice(j, 1)
+                        removeAll()
+                        addAll(projects)
+                    }, 1000);
+                }
+            }
+        }
+    }))
 }
 
 function removeAll() {
@@ -159,16 +172,3 @@ submitItem.addEventListener("click", (event) => {
     newItem.removeAttribute("style", "display: grid;")
     newItem.setAttribute("style", "display: hidden;")
 })
-
-listItems.forEach((e) => e.addEventListener("click", (event) => {
-    projects.forEach((e, i) => {
-        for(let j in projects[i].items) {
-            if(projects[i].items[j].title == event.target.parentNode.lastChild.textContent) {
-                projects[i].items.splice(j, 1)
-                console.log(projects)
-            }
-        }
-    })
-    removeAll()
-    addAll(projects)
-}))
