@@ -11,15 +11,14 @@ body {
     padding: 8px;
     display: grid;
     grid-template-columns: 0.5fr 1fr;
-    border-left: #246da9 5px solid;
-    border-top: #246da9 5px solid;
+    border-left: #0d9c19 5px solid;
 }
 
 li:nth-child(n+1) {
     border-top: 2px #f1f1f1 solid;
 }
 
-li:nth-last-child(1) {
+li:nth-last-child(1), header {
     border-bottom: 2px #f1f1f1 solid;
 }
 
@@ -33,14 +32,6 @@ li {
     padding: 0;
 }
 
-input[type="checkbox"]:checked + label::before {
-    color: blue;
-}
-
-label::before {
-    background: blue;
-}
-
 .button-box {
     display: flex;
     justify-content: end;
@@ -52,6 +43,7 @@ button {
     padding: 7px 20px;
     border-radius: 50px;
     margin: 15px 10px;
+    font-weight: bold;
 }
 
 .button-box, h2 {
@@ -72,6 +64,8 @@ header {
 form {
     display: none;
     padding: 16px;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 form div {
@@ -85,4 +79,65 @@ input[type="text"], input[type="number"] {
     padding: 7px 20px;
     border-radius: 50px;
     margin: 15px 10px;
+}
+
+.project-title {
+    margin: none;
+}
+
+.button-box > {
+    margin: none;
+}
+
+.project {
+    margin: 64px 8px;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+  
+label {
+    position: relative;
+    font-size: 1.3rem;
+    margin-left: 32px;
+}
+
+label::before {
+    content: "";
+    background: url("assets/check.svg");
+    background-position: center;
+    background-size: contain;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    left: -44px;
+    top: -8px;
+  
+    transform: scale(0) rotateZ(-90deg);
+    transition: all 0.4s cubic-bezier(0.3, 0.05, 0, 1);
+  }
+
+input[type="checkbox"]:checked + label::before {
+    transform: scale(1) rotateZ(0deg);
+}
+
+input[type="checkbox"]:checked + label {
+    transition: all 1s;
+}
+  
+main label::after {
+    content: "";
+    border: 2px solid #27ae60;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: -42px;
+    top: -6px;
+    border-radius: 50%;
+}
+
+.add-project {
+    background-color: #0d9c19;
+    color: white;
 }
