@@ -1,7 +1,8 @@
 const container = document.querySelector("main")
 const addProject = document.querySelector(".add-project")
 const newForm = document.querySelector("#new-project-form")
-const submit = document.querySelector("#create-project")
+const newItem = document.querySelector("#new-item-form")
+const submit = document.querySelectorAll("#create")
 let buttons;
 
 const Dom = {
@@ -66,21 +67,32 @@ class Project {
     }
 }
 
+function addCreateItem() {
+    newItem.removeAttribute("style", "display: hidden;")
+    newItem.setAttribute("style", "display: grid;")
+}
+
 function addAll(arr = []) {
+    console.log(arr)
     arr.forEach(i => {
         i.addProject()
     })
     buttons = document.querySelectorAll(".project button")
-    console.log(buttons)
     buttons.forEach(btn => {
         btn.addEventListener("click", (event) => {
             const className = event.target.classList[0]
             switch(className) {
                 case "button-add":
+                    const item = event.target.parentNode.parentNode.firstChild.textContent
+                    console.log(item)
+                    projects.forEach((element, index) => {
+                        if(element.title == item) {
+                            addCreateItem()
+                        }
+                    })
                     break
                 case "button-delete":
                     const name = event.target.parentNode.parentNode.firstChild.textContent
-                    console.log(name)
                     projects.forEach((element, index) => {
                         if(element.title == name) {
                             projects.splice(index, 1)
@@ -113,15 +125,25 @@ addProject.addEventListener("click", () => {
     newForm.setAttribute("style", "display: grid;")
 })
 
-submit.addEventListener("click", () => {
-    event.preventDefault()
-    let title = document.querySelector("#new-project-form input").value
+submit.forEach((e) => {
+    addEventListener("click", (event) => {
+        event.preventDefault()
+        let title = document.querySelector("#new-project-form input#title").value
+        let desc = document.querySelector("#new-project-form input#desc").value
+        let date = document.querySelector("#new-project-form input#date").value
+        let time = document.querySelector("#new-project-form input#time").value
+        console.log(title + " " + desc + " " + date + " " + time)
     
-
-    newForm.removeAttribute("style", "display: grid;")
-    newForm.setAttribute("style", "display: hidden;")
-
-    removeAll()
-    projects.push(new Project(title))
-    addAll(projects)
+        newForm.removeAttribute("style", "display: grid;")
+        newForm.setAttribute("style", "display: hidden;")
+        if(desc != undefined) {
+            removeAll()
+            projects.push(new Project(title))
+            addAll(projects)
+        } else {
+            removeAll()
+            projects[0].items.push(new Item(title, desc, [date, time]))
+            addAll(projects)
+        }
+    })
 })
